@@ -72,9 +72,9 @@ int game_chooseCategory()
     ui_showCategoryMenu(names, count);
     
     int choice = input_readMenuChoice(1, count +1);
-    if(choice==count+1)
+    if (choice == count + 1)
     {
-        return 1;
+        return -1;
     }
     else
     {
@@ -85,8 +85,7 @@ int game_chooseCategory()
 Theme game_chooseTheme()
 {
     ui_showThemeMenu();
-    
-    input_readMenuChoice(1, 3);
+
     return (Theme)input_readMenuChoice(1, 3);
 }
 /* starts round and plays round on repeat using : 2,3 */
@@ -95,26 +94,23 @@ int game_playRound(GameState *g)
     #define MAX_MESSAGE_LEN 256
     char message[MAX_MESSAGE_LEN];
     
+    Theme theme = game_chooseTheme();
 
-    game_chooseTheme();
-
-    int cat_index = game_chooseCategory();
+    int category_index = game_chooseCategory();
     
-    char phrase_buf[MAX_PHRASE_LEN];
-    char hint_buf[MAX_HINT_LEN];
-    char cat_name[MAX_CATEGORY_LEN];
+    char phrase[MAX_PHRASE_LEN];
+    char hint[MAX_HINT_LEN];
+    char category[MAX_CATEGORY_LEN];
 
-    data_getCategoryName(cat_index, cat_name);
-
-    if (data_fetchPhrase(cat_index, phrase_buf, hint_buf, cat_name) == 0) 
+    if (data_fetchPhrase(category_index, phrase, hint, category) == 0) 
     {
         strcpy(message, "Phrase not found.");
         printf("%s\n", message);
         return 0;
     }
-    logic_initRound(g, phrase_buf, hint_buf, cat_name);
+    logic_initRound(g, phrase, hint, category);
     g->palette = ui_pickRandomPalette();
-    g->theme = ui_pickRandomPalette();
+    g->theme = theme;
     input_clearGuessed(g);
     message[0] = '\0';
     
@@ -187,4 +183,5 @@ int game_endRound(GameState *g, int won)
     }
 
 }
+
 
