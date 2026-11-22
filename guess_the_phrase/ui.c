@@ -12,6 +12,10 @@
 #include <sys/ioctl.h>
 #endif
 
+/* game_types.h calls it PALETTE_COUNT; the UI code uses MAX_PALETTE_COUNT */
+#ifndef MAX_PALETTE_COUNT
+#define MAX_PALETTE_COUNT PALETTE_COUNT
+#endif
 
 /* ---------- escape codes ---------- */
 #define RESET      "\033[0m"
@@ -169,7 +173,7 @@ typedef struct {
     const char *green;
 } Colors;
 
-static const Colors schemes[PALLATE_COUNT] = {
+static const Colors schemes[MAX_PALETTE_COUNT] = {
     /* 0: Hangman on cyan     bg #C9F2F4 text #A8126B red #C1121F green #1B7F3B */
     { "\033[48;2;201;242;244m", "\033[38;2;168;18;107m", "\033[38;2;20;110;125m",
       "\033[38;2;193;18;31m",   "\033[38;2;27;127;59m" },
@@ -190,7 +194,7 @@ static const Colors schemes[PALLATE_COUNT] = {
 static const Colors *getColors(int palette)
 {
     if (palette < 0) palette = 0;
-    return &schemes[palette % PALLATE_COUNT];
+    return &schemes[palette % MAX_PALETTE_COUNT];
 }
 
 /* ---------- small helper: big heading in a box ---------- */
@@ -524,7 +528,7 @@ void ui_drawLifeStage(Theme theme, int triesLeft, int maxTries)
 
 int ui_pickRandomPalette(void)
 {
-    return rand() % PALLATE_COUNT;   /* no srand here */
+    return rand() % MAX_PALETTE_COUNT;   /* no srand here */
 }
 
 void ui_showGameBoard(const GameState *g)
