@@ -6,7 +6,6 @@
 /* general */
 void ui_clearScreen(void);
 void ui_showMessage(const char *text);
-void ui_showPrompt(const char *text);
 void ui_showGoodbye(void);
 
 /* menus and help */
