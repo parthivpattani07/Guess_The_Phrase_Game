@@ -249,12 +249,6 @@ void ui_showMessage(const char *text)
     flushPartial();
 }
 
-void ui_showPrompt(const char *text)
-{
-    printf(" %s ", text);
-    flushPartial();
-}
-
 void ui_showGoodbye(void)
 {
     fputs(RESET CLEAR, stdout);
