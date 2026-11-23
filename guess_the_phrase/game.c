@@ -119,7 +119,7 @@ int game_playRound(GameState *g)
         ui_clearScreen();
         ui_showGameBoard(g);
         char guess[MAX_PHRASE_LEN];
-        ui_showPrompt("Your guess > ");
+       
         
         GuessType type = input_readGuess(g, guess);
         switch (type) {
@@ -172,7 +172,7 @@ int game_endRound(GameState *g, int won)
         ui_clearScreen();
         ui_showLoseScreen(g);
     }
-    ui_showPrompt("Enter 1 to play again and 2 to quit : ");
+    
     if (input_readMenuChoice(1, 2)==1)
     {
         return 1;
