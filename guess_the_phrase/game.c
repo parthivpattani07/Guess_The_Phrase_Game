@@ -163,6 +163,7 @@ int game_endRound(GameState *g, int won)
 {
     if (logic_isWon(g)==1)
     {
+        logic_finalizeScore(g);
         data_saveScore(g->playerName, g->score);
         ui_clearScreen();
         ui_showWinScreen(g);
