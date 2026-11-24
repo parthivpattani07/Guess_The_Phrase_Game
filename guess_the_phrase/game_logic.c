@@ -125,10 +125,6 @@ int logic_checkLetter(GameState *g, char letter)
     {
         g->triesLeft -= 1;
         g->score -= PENALTY_WRONG_LETTER;
-        if (g->score < 0)
-        {
-            g->score = 0;
-        }
     }
 
     return matches;
@@ -156,10 +152,7 @@ int logic_checkPhrase(GameState *g, const char *guess)
 
     g->triesLeft -= 1;
     g->score -= PENALTY_WRONG_PHRASE;
-    if (g->score < 0)
-    {
-        g->score = 0;
-    }
+    
     return 0;
 }
 
@@ -172,10 +165,7 @@ int logic_useHint(GameState *g)
 
     g->hintUsed = 1;
     g->score -= PENALTY_HINT;
-    if (g->score < 0)
-    {
-        g->score = 0;
-    }
+
     return 1;
 }
 
