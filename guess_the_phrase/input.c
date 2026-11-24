@@ -257,7 +257,7 @@ void input_readPlayerName(char *outName)
         valid = (length >= 1 && length <= 15);
         for (i = 0; i < length; i++) 
         {
-            if (!isalpha((unsigned char)buffer[i])) 
+            if (!isgraph((unsigned char)buffer[i]) || buffer[i] == '|') 
             {
                 valid = 0;
                 break;
