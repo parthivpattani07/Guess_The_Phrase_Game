@@ -124,7 +124,7 @@ GuessType input_readGuess(GameState *g, char *outText)
     }
     while (1) 
     {
-        printf( "\nEnter your guess (letter / phrase / ? for hint):" );
+        printf( "\nEnter your guess (letter / phrase / ? for hint / ! for main menu):" );
         if (!input_readLine(buffer, sizeof(buffer))) 
         {
             outText[0] = '\0' ;
@@ -153,6 +153,12 @@ GuessType input_readGuess(GameState *g, char *outText)
         {
             outText[0] = '\0' ;
             return GUESS_HINT;
+        }
+        /* An exclamation mark means: quit this round and go to the main menu. */
+        if (strcmp(start, "!" ) == 0) 
+        {
+            outText[0] = '\0' ;
+            return GUESS_QUIT;
         }
         /* A single character is treated as a letter guess. */
         if (len == 1) 
@@ -202,6 +208,12 @@ int input_readMenuChoice(int min, int max)
         {
             return min;
         }
+        /* An exclamation mark means: go back to the main menu.
+           We return 0, which can never be a real choice (menus start at 1). */
+        if (strcmp(buffer, "!" ) == 0) 
+        {
+            return 0;
+        }
         if (buffer[0] == '\0' ) 
         {
             printf( "Please type a number.\n" );
@@ -247,7 +259,7 @@ void input_readPlayerName(char *outName)
     }
     while (1) 
     {
-        printf( "Enter your name (1-15 letters):" );
+        printf( "Enter your name (1-15 letters/charachters):" );
         if (!input_readLine(buffer, sizeof(buffer))) 
         {
             outName[0] = '\0' ;
@@ -268,7 +280,7 @@ void input_readPlayerName(char *outName)
             strcpy(outName, buffer);
             return;
         }
-        printf( "Use letters only (1 to 15).\n" );
+        printf( "Use any charchters (1 to 15).\n" );
     }
 }
 
