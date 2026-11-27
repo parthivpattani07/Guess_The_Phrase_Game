@@ -194,11 +194,11 @@ int game_playRound(GameState *g)
 
 
     }
-    return game_endRound(g, logic_isWon(g));
+    return game_endRound(g);
 }
 /* finishes the round and shows win or lose screen to user and allows to choose whether to play again or go to menu.
 modules called : 1,3,4*/
-int game_endRound(GameState *g, int won)
+int game_endRound(GameState *g)
 {
     if (logic_isWon(g)==1)
     {
