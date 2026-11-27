@@ -14,6 +14,6 @@ Theme game_chooseTheme();
 
 /* in single round */
 int game_playRound(GameState *g);
-int game_endRound(GameState *g, int won);
+int game_endRound(GameState *g);
 
 #endif
